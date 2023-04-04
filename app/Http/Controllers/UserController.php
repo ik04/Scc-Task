@@ -84,20 +84,36 @@ class UserController extends Controller
 
     
     public function searchUser(Request $request,$id){
-        if($user=User::where("id",$id)->select("id","name","email","creationTimeStamp")->get()){
-            $count  = count($user,1);
-            if(!($count === 0)){
-                return response()->json($user,200);
-            }else{
+            if($user=User::where("id",$id)->select("id","name","email","creationTimeStamp")->get()){
+                $count  = count($user,1);
+                if(!($count === 0)){
+                    return response()->json($user,200);
+                }else{
                 return response()->json('user with id '.$id.' not found',404);
             }
          
         }else{
             return response()->json('user with id '.$id.' not found',404);
         }
+
     }
+    public function deleteUser(Request $request,$id){
+            if($user=User::where("id",$id)->first()){
+                    $current = $request->user();
+                    if($current["isAdmin"] || $user['id'] === $current["id"]){
+                        $user->delete();
+                        return response()->json("User Account Deleted.",200);
+                    }else{
+                        return response()->json("you are unauthorized",401);
+                    }
+        }else{
+            return response()->json('user with id '.$id.' not found',404);
+        }
+
+    }
+
     public function logout(Request $request){
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
         $response =  [
             'message' => 'logged out'
         ];
@@ -105,3 +121,4 @@ class UserController extends Controller
     }
 }   
 // todo function to delete user (admin and the user himself)
+// todo token error handling for sanctum routes

@@ -31,5 +31,6 @@ Route::get("users",[UserController::class,"listUsers"]);
 Route::get("users/{hours}",[UserController::class,"createdByHour"]);
 Route::get("user/{id}",[UserController::class,"searchUser"]);
 Route::post("logout",[UserController::class,"logout"]);
+Route::delete("user/{id}",[UserController::class,"deleteUser"]);
 });
 //todo remember to return proper errors

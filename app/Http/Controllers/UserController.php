@@ -96,4 +96,12 @@ class UserController extends Controller
             return response()->json('user with id '.$id.' not found',404);
         }
     }
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        $response =  [
+            'message' => 'logged out'
+        ];
+        return response($response,200);
+    }
 }   
+// todo function to delete user (admin and the user himself)

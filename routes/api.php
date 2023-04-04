@@ -30,5 +30,6 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 Route::get("users",[UserController::class,"listUsers"]);
 Route::get("users/{hours}",[UserController::class,"createdByHour"]);
 Route::get("user/{id}",[UserController::class,"searchUser"]);
+Route::post("logout",[UserController::class,"logout"]);
 });
 //todo remember to return proper errors

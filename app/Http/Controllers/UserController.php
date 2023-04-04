@@ -104,7 +104,7 @@ class UserController extends Controller
                         $user->delete();
                         return response()->json("User Account Deleted.",200);
                     }else{
-                        return response()->json("you are unauthorized",401);
+                        return response()->json("You Are Unauthorized",401);
                     }
         }else{
             return response()->json('user with id '.$id.' not found',404);
@@ -120,5 +120,4 @@ class UserController extends Controller
         return response($response,200);
     }
 }   
-// todo function to delete user (admin and the user himself)
 // todo token error handling for sanctum routes

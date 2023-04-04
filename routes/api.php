@@ -34,3 +34,4 @@ Route::post("logout",[UserController::class,"logout"]);
 Route::delete("user/{id}",[UserController::class,"deleteUser"]);
 });
 //todo remember to return proper errors
+//todo proper docs for installation

@@ -91,7 +91,6 @@ class UserController extends Controller
                 }else{
                 return response()->json('user with id '.$id.' not found',404);
             }
-         
         }else{
             return response()->json('user with id '.$id.' not found',404);
         }
@@ -120,4 +119,3 @@ class UserController extends Controller
         return response($response,200);
     }
 }   
-// todo token error handling for sanctum routes

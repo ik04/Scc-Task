@@ -17,21 +17,25 @@ use Illuminate\Support\Facades\Route;
 
 
 // http://localhost:8000/api/ (root route)
-// test the Api on Postman
+// test the Api on Postman, Please Put the Accept: application/json header
 Route::get("/healthcheck",[UserController::class,"index"]);
 // Register , login 
-Route::post("/signup",[UserController::class,"register"]);
-Route::post("/register-admin",[UserController::class,"registerAdmin"]); // to showcase the delete route, a simple admin login
-Route::post("/login",[UserController::class,"login"]);
 
-// Authenticated Routes (only for logged in users)
-// list , Delete , Info 
+
+Route::post("/signup",[UserController::class,"register"]);
+Route::post("/login",[UserController::class,"login"]);
+Route::post("/register-admin",[UserController::class,"registerAdmin"]); // to showcase the delete route, a simple admin creation route
+
+
+// Authenticated Routes (Requires login token in Authorization header)
+// list , Delete , Info , get by hour
 Route::group(['middleware'=>['auth:sanctum']],function(){
-Route::get("users",[UserController::class,"listUsers"]);
-Route::get("users/{hours}",[UserController::class,"createdByHour"]);
-Route::get("user/{id}",[UserController::class,"searchUser"]);
+    
+Route::get("users",[UserController::class,"listUsers"]); // lists all
+Route::get("users/{hours}",[UserController::class,"createdByHour"]); // to get users created in the last specified hours
+Route::get("user/{id}",[UserController::class,"searchUser"]); // Search user by id
+
+
 Route::post("logout",[UserController::class,"logout"]);
-Route::delete("user/{id}",[UserController::class,"deleteUser"]);
+Route::delete("user/{id}",[UserController::class,"deleteUser"]); // an admin can delete other users, a normal user can only delete their own acc
 });
-//todo remember to return proper errors
-//todo proper docs for installation

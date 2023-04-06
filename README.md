@@ -33,7 +33,7 @@ After setup you can now interact with the different routes of the Api
 ```bash 
 php artisan serve
 ```
-Routes:
+Routes and Outputs:
 ![Screenshot from 2023-04-06 11-38-21](https://user-images.githubusercontent.com/63468587/230293974-1f946f71-3e46-410c-a6cf-216afac6eec3.png)
 
 

@@ -6,7 +6,11 @@ A Project made using php and laravel for Scc recruitments 2023
 
 - Install Php and xampp for windows [here](https://www.apachefriends.org/)
 
-- Install Composer and Laravel for windows [here](https://getcomposer.org/)
+- Install Composer for windows [here](https://getcomposer.org/)
+- to install Laravel, run the following after installing composer
+```bash
+composer global require laravel/installer
+```
 
 - Run mysql and apache on the xampp panel (setup root with no password)
 

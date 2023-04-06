@@ -30,7 +30,7 @@ After setup you can now interact with the different routes of the Api
 - All routes Are defined in the routes folder (routes/api.php)
 - The code for function of each route is in the Usercontroller (app/http/Controllers/UserController.php)
 ## Precautions
-- Please send your requests on http://127.0.0.1:8000/api/[route-param / name]
+- Please send your requests on http://127.0.0.1:8000/api/ [route-param / name]
 - Make sure to put in Accept Header (Accept: application/json)
 - For all authorized routes (users, users/{hours}, user/{id} and logout) put the Login token in the Authorization Header
 

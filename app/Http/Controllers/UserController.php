@@ -47,6 +47,7 @@ class UserController extends Controller
         $readableTime = $currentTime->toDateTimeString(); // this is in utc, it has date and time
     
        $user = User::create(["name"=>$validated["name"],"email"=>$validated["email"],"password" =>Hash::make($validated["password"]),"creationTimeStamp"=>$readableTime,"isAdmin"=>1]);
+    // creates an admin user that can delete other users
        return response()->json($user,200);
     }
     
@@ -69,7 +70,7 @@ class UserController extends Controller
         }
         $token = $user->createToken('myapptoken')->plainTextToken;
         return response()->json(['user'=>$user,'token'=>$token],200)->withCookie(cookie()->forever('at',$token)); 
-        // use the token in authorization header to make certain routes work
+        // use the returned token in authorization header to make certain routes work
     }
     public function listUsers(Request $request){
         $users = User::select("id","name","email","creationTimeStamp")->orderBy("name","asc")->get();
@@ -77,7 +78,7 @@ class UserController extends Controller
     }
 
     public function createdByHour(Request $request, $hours){
-        $requestedTime = Carbon::now()->subHour($hours)->toDateTimeString();
+        $requestedTime = Carbon::now()->subHour($hours)->toDateTimeString(); // subtracts the parameter time from current time
         $requestedUsers = User::where("creationTimeStamp",">=",$requestedTime)->get(); // utc time comparison, check here for ist  https://www.utctime.net/utc-to-ist-indian-converter
         return response()->json($requestedUsers,200);
     }
@@ -98,8 +99,8 @@ class UserController extends Controller
     }
     public function deleteUser(Request $request,$id){
             if($user=User::where("id",$id)->first()){
-                    $current = $request->user();
-                    if($current["isAdmin"] || $user['id'] === $current["id"]){
+                    $currentUser = $request->user();
+                    if($currentUser["isAdmin"] || $user['id'] === $currentUser["id"]){
                         $user->delete();
                         return response()->json("User Account Deleted.",200);
                     }else{
@@ -112,9 +113,12 @@ class UserController extends Controller
     }
 
     public function logout(Request $request){
+        $currentUser = $request->user();
+        $username = $currentUser["name"];
         $request->user()->tokens()->delete();
+        //deletes user tokens making them invalid 
         $response =  [
-            'message' => 'logged out'
+            'message' => 'logged out '. $username
         ];
         return response($response,200);
     }

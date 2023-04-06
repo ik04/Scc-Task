@@ -35,7 +35,6 @@ Route::get("users",[UserController::class,"listUsers"]); // lists all
 Route::get("users/{hours}",[UserController::class,"createdByHour"]); // to get users created in the last specified hours
 Route::get("user/{id}",[UserController::class,"searchUser"]); // Search user by id
 
-
-Route::post("logout",[UserController::class,"logout"]);
+Route::post("logout",[UserController::class,"logout"]);// a logged in user can logout
 Route::delete("user/{id}",[UserController::class,"deleteUser"]); // an admin can delete other users, a normal user can only delete their own acc
 });

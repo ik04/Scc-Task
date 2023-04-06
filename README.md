@@ -14,7 +14,7 @@ composer global require laravel/installer
 
 - Run mysql and apache on the xampp panel (setup root with no password)
 
-git clone the repo into a folder and paste the following to initialize (run on git bash)
+paste the following to initialize (run on git bash):
 
 ```bash
 git clone https://github.com/ik04/Scc-Task.git
